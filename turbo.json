@@ -6,6 +6,10 @@
       "outputs": [
         ".next/**",
         "dist/**"
+      ],
+      "env": [
+        "SILICONFLOW_API_KEY",
+        "SILTCONFLOW_MODEL_NAME"
       ]
     },
     "dev": {

@@ -1,0 +1,22 @@
+{
+  "name": "nos",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "packageManager": "pnpm@8.15.9",
+
+  "scripts": {
+    "dev": "turbo dev",
+    "web": "turbo dev --filter=@apps/web",
+
+    "build": "turbo build",
+    "lint": "turbo lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20",
+    "turbo": "^2.10.7"
+  }
+}

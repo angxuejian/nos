@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "turbo dev",
     "web": "turbo dev --filter=@apps/web",
+    "cli": "turbo dev --filter=@apps/cli",
+
 
     "build": "turbo build",
     "lint": "turbo lint"

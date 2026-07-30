@@ -1,5 +1,5 @@
 {
-  "name": "@angxuejian/nos-cli",
+  "name": "@apps/cli",
   "version": "0.1.0",
   "description": "A personal AI agent.",
   "type": "module",

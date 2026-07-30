@@ -69,9 +69,9 @@ echo "🌿 Branch: $BRANCH"
 echo "🚀 Release $APP ($TYPE)"
 
 # 更新版本号
-pnpm --filter "@apps/$APP" version "$TYPE" --no-git-tag-version
+pnpm --filter "./apps/$APP" version "$TYPE" --no-git-tag-version
 
-VERSION=$(pnpm --filter "@apps/$APP" exec node -p "require('./package.json').version")
+VERSION=$(pnpm --filter "./apps/$APP" exec node -p "require('./package.json').version")
 
 echo "📦 Version: $APP-v$VERSION"
 

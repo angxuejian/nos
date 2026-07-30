@@ -1,47 +1,26 @@
 name: Publish Nos Cli
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "Publish app"
+        required: true
+        default: "cli"
+        type: choice
+        options:
+          - cli
+          - web
 
 jobs:
 
-  ci:
-    uses: ./.github/workflows/ci.yml
-
-  check-tag:
-    needs: ci
+  publish:
     runs-on: ubuntu-latest
-    outputs:
-      publish: ${{ steps.check.outputs.publish }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
-      - name: Check cli tag
-        id: check
-        run: |
-          TAG=$(git tag --points-at HEAD | grep "^cli-v" || true)
-
-          if [ -z "$TAG" ]; then
-            echo "No cli tag found"
-            echo "publish=false" >> $GITHUB_OUTPUT
-          else
-            echo "Found tag: $TAG"
-            echo "publish=true" >> $GITHUB_OUTPUT
-          fi
-
-
-  publish:
-    needs: check-tag
-    if: needs.check-tag.outputs.publish == 'true'
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Publish
         run: |
-          echo "publish cli"
+          echo "publish ${{ inputs.app }}"

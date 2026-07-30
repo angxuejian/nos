@@ -9,8 +9,7 @@
     "dev": "turbo dev",
     "web": "turbo dev --filter=@apps/web",
     "cli": "turbo dev --filter=@apps/cli",
-
-
+    "release": "bash scripts/release.sh",
     "build": "turbo build",
     "lint": "turbo lint"
   },

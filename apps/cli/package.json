@@ -1,16 +1,30 @@
 {
-  "name": "@apps/cli",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@angxuejian/nos-cli",
+  "version": "0.1.0",
+  "description": "A personal AI agent.",
   "type": "module",
+  "bin": {
+    "nos": "./dist/index.js"
+  },  
   "scripts": {
     "dev": "tsx src/index.tsx",
     "build": "tsc",
     "start": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "agent",
+    "ai"
+  ],
+  "author": "angxuejian",
   "license": "ISC",
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/angxuejian/nos"
+  },
+  "bugs": {
+    "url": "https://github.com/angxuejian/nos/issues"
+  },
   "dependencies": {
     "ink": "^7.1.1",
     "react": "19.2.4"

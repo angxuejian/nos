@@ -1,11 +1,11 @@
 {
-  "name": "@angxuejian/nos-cli",
-  "version": "0.1.0",
+  "name": "@apps/cli",
+  "version": "0.1.1",
   "description": "A personal AI agent.",
   "type": "module",
   "bin": {
     "nos": "./dist/index.js"
-  },  
+  },
   "scripts": {
     "dev": "tsx src/index.tsx",
     "build": "tsc",
@@ -18,7 +18,7 @@
   ],
   "author": "angxuejian",
   "license": "ISC",
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/angxuejian/nos"
   },

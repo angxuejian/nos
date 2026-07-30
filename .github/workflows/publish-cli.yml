@@ -2,33 +2,46 @@ name: Publish Nos Cli
 
 on:
   push:
-    tags:
-      - "cli-v*"
+    branches:
+      - main
 
 jobs:
 
   ci:
     uses: ./.github/workflows/ci.yml
 
-  publish:
+  check-tag:
     needs: ci
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.check.outputs.publish }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # 必须获取完整 git 历史，否则无法判断分支
+          fetch-depth: 0
 
-      - name: Check tag branch
+      - name: Check cli tag
+        id: check
         run: |
-          if ! git branch -r --contains $GITHUB_SHA | grep "origin/main"; then
-            echo "❌ Tag is not from main branch"
-            exit 1
+          TAG=$(git tag --points-at HEAD | grep "^cli-v" || true)
+
+          if [ -z "$TAG" ]; then
+            echo "No cli tag found"
+            echo "publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Found tag: $TAG"
+            echo "publish=true" >> $GITHUB_OUTPUT
           fi
 
-          echo "✅ Tag is from main branch"
 
-      - name: Test publish
+  publish:
+    needs: check-tag
+    if: needs.check-tag.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Publish
         run: |
-          echo "success"
+          echo "publish cli"

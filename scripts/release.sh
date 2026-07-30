@@ -51,6 +51,13 @@ case "$TYPE" in
     ;;
 esac
 
+BRANCH=$(git branch --show-current)
+
+if [ -z "$BRANCH" ]; then
+  echo "❌ Cannot detect current branch."
+  exit 1
+fi
+
 # 检查 git 工作区
 if [ -n "$(git status --porcelain)" ]; then
   echo "❌ Git working tree is not clean."
@@ -58,13 +65,13 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1
 fi
 
-
+echo "🌿 Branch: $BRANCH"
 echo "🚀 Release $APP ($TYPE)"
 
 # 更新版本号
-pnpm --filter "@apps/$APP" version "$TYPE" --no-git-tag-version
+pnpm --filter "./apps/$APP" exec npm version "$TYPE" --no-git-tag-version
 
-VERSION=$(node -p "require('./apps/$APP/package.json').version")
+VERSION=$(pnpm --filter "./apps/$APP" exec node -p "require('./package.json').version")
 
 echo "📦 Version: $APP-v$VERSION"
 
@@ -73,7 +80,7 @@ git commit -m "feat($APP): release v$VERSION"
 
 git tag "$APP-v$VERSION"
 
-git push origin main
+git push
 git push origin "$APP-v$VERSION"
 
 echo "✅ Released $APP-v$VERSION"

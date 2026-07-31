@@ -1,26 +1,41 @@
 name: Publish Nos Cli
 
 on:
-  workflow_dispatch:
-    inputs:
-      app:
-        description: "Publish app"
-        required: true
-        default: "cli"
-        type: choice
-        options:
-          - cli
-          - web
+  push:
+    branches:
+      - main
 
 jobs:
 
-  publish:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+
+  check-cli-change:
+    needs: ci
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.filter.outputs.cli }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Publish
+      - name: Check apps/cli changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            cli:
+              - 'apps/cli/**'
+
+
+  publish:
+    needs: check-cli-change
+    if: needs.check-cli-change.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Publish cli
         run: |
-          echo "publish ${{ inputs.app }}"
+          echo "publish cli"

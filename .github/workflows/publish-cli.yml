@@ -56,8 +56,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cli
-          path: apps/cli/dist
-          path: apps/cli/package.json
+          path: |
+            apps/cli/dist
+            apps/cli/package.json
 
   publish-npm:
     needs: cli-build

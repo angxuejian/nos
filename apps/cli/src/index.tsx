@@ -5,7 +5,7 @@ import { render, Text } from "ink";
 function App() {
   return (
     <Text color="yellow">
-      Hello NOS CLI 🚀 🚀
+      Hello NOS CLI 🚀 
     </Text>
   );
 }

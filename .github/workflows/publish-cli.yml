@@ -132,6 +132,6 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.publish-npm.outputs.RELEASE_TAG }}
-          name: Release ${{ steps.publish-npm.outputs.RELEASE_TAG }}
+          tag_name: ${{ steps.version.outputs.RELEASE_TAG }}
+          name: Release ${{ steps.version.outputs.RELEASE_TAG }}
           generate_release_notes: true

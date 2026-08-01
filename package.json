@@ -6,11 +6,9 @@
   "packageManager": "pnpm@8.15.9",
 
   "scripts": {
-    "dev": "turbo dev",
     "web": "turbo dev --filter=@apps/web",
     "cli": "turbo dev --filter=@apps/cli",
-    "release": "bash scripts/release.sh",
-    "build": "turbo build",
+    "cli:build": "turbo build --filter=@apps/cli",
     "lint": "turbo lint"
   },
   "keywords": [],

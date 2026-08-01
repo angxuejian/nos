@@ -7,10 +7,6 @@ on:
 
 jobs:
 
-  ci:
-    uses: ./.github/workflows/ci.yml
-
-
   check-cli-change:
     needs: ci
     runs-on: ubuntu-latest
@@ -23,19 +19,119 @@ jobs:
 
       - name: Check apps/cli changes
         id: filter
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           filters: |
             cli:
               - 'apps/cli/**'
 
-
-  publish:
+  cli-build:
     needs: check-cli-change
     if: needs.check-cli-change.outputs.publish == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build cli
+        run: pnpm cli:build
+      
+      - name: Upload Cli artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli
+          path: apps/cli/dist
+          path: apps/cli/package.json
+
+  publish-npm:
+    needs: cli-build
+    runs-on: ubuntu-latest
+
+    outputs:
+      RELEASE_TAG: ${{ steps.version.outputs.RELEASE_TAG }}
+    
+    environment:
+      name: npm
+    
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24 # 一定要大于24版本的才支持 OIDC
+          registry-url: https://registry.npmjs.org
+      
+      - name: Download cli
+        uses: actions/download-artifact@v4
+        with:
+          name: cli
+          path: apps/cli
+
+      - name: Rename cli package name
+        working-directory: apps/cli
+        run: |
+          npm pkg set name="@angxuejian/nos"
+
       - name: Publish cli
         run: |
-          echo "publish cli"
+          cd apps/cli
+          npm publish
+      
+      - name: Read cli package version
+        id: version
+        run: |
+          VERSION=$(node -p 'require("./apps/cli/package.json").version')
+          echo "RELEASE_TAG=cli-v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create cli git tag
+        uses: actions/github-script@v7
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.RELEASE_TAG }}
+        with:
+          script: |
+            const tag = process.env.RELEASE_TAG
+
+            try {
+                await github.rest.git.getRef({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    ref: `tags/${tag}`,
+                })
+                console.log(`Tag ${tag} already exists, skip`)
+            } catch (e) {
+                console.log(`Creating tag ${tag}`)
+                await github.rest.git.createRef({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    ref: `refs/tags/${tag}`,
+                    sha: context.sha
+                })
+            }
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.publish-npm.outputs.RELEASE_TAG }}
+          name: Release ${{ needs.publish-npm.outputs.RELEASE_TAG }}
+          generate_release_notes: true

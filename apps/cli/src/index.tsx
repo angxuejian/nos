@@ -4,8 +4,8 @@ import { render, Text } from "ink";
 
 function App() {
   return (
-    <Text color="yellow">
-      Hello NOS CLI 🚀 🚀
+    <Text color="blue">
+      Hello NOS CLI 🚀 
     </Text>
   );
 }

@@ -9,7 +9,7 @@ export default function ChatLayout({ children, }: { children: React.ReactNode; }
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="w-screen h-screen flex bg-[red] relative">
+        <div className="w-screen h-screen flex relative">
          <Sidebar isOpen={isOpen} onOpenChange={setIsOpen} />
 
             <main className="flex-1">

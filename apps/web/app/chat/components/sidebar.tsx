@@ -35,7 +35,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
         className={`@container group transition-all bg-[#fff] duration-300 ease-in-out overflow-hidden w-0 sm:w-14 md:w-14 lg:w-[255px] h-full border-r border-[#0505050f]  absolute left-0 top-0 pt-4 ${isOpen ? "max-sm:w-[255px]" : "max-sm:w-0"} max-sm:z-20 ${isVisible ? "is-visible" : ""}`}
       >
         <p className="h-[40px] px-3 flex items-center mb-4">
-          <a className="transition-all duration-300 ease group scale-100 hover:scale-110 w-8 h-8 cursor-pointer rounded-lg flex items-center justify-center oveflow-hidden shrink-0">
+          <a className="transition-all duration-300 ease group/parent scale-100 hover:scale-110 w-8 h-8 cursor-pointer rounded-lg flex items-center justify-center oveflow-hidden shrink-0">
             <svg
               className="icon text-[#333] transition-all duration-300 ease"
               viewBox="0 0 1024 1024"
@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
                 fill="currentColor"
               ></path>
               <path
-                className="group-hover:scale-110 group-hover:animate-shake-left transition-all duration-300 ease"
+                className="group-hover/parent:scale-110 group-hover/parent:animate-shake-left transition-all duration-300 ease"
                 d="M453.704282 346.17151c60.235294-73.29837 189.4146-27.577605 224.975195 43.543586 63.1382 128.453579-12.337349 348.348689-55.880936 444.144578 18.868887-115.390503 88.538625-328.754075 24.674699-442.693125C617.718457 338.914245 524.825473 296.822112 453.704282 346.17151z"
                 p-id="73233"
                 fill="currentColor"
@@ -60,7 +60,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
           </a>
         </p>
 
-        <p className="h-9 mx-2.5 group transition-all duration-300 ease rounded-xl flex items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1">
+        <p className="h-9 mx-2.5 group/parent transition-all duration-300 ease rounded-xl flex items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1">
           <a className="w-9 h-full flex items-center justify-center oveflow-hidden shrink-0">
             <svg
               className="icon"
@@ -74,7 +74,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
                 style={{
                   transformOrigin: "512px 512px",
                 }}
-                className="group-hover:scale-110 transition-all duration-300 ease"
+                className="group-hover/parent:scale-110 transition-all duration-300 ease"
                 d="M810.666667 597.333333a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333h85.333334a42.666667 42.666667 0 1 1 0 85.333334h-85.333334v85.333333a42.666667 42.666667 0 1 1-85.333333 0v-85.333333h-85.333333a42.666667 42.666667 0 1 1 0-85.333334h85.333333v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667zM682.666667 128a298.666667 298.666667 0 0 1 298.666666 298.666667v42.666666a42.666667 42.666667 0 1 1-85.333333 0v-42.666666a213.333333 213.333333 0 0 0-213.333333-213.333334H341.333333a213.333333 213.333333 0 0 0-213.333333 213.333334v384h384a42.666667 42.666667 0 1 1 0 85.333333H128a85.333333 85.333333 0 0 1-85.333333-85.333333v-384a298.666667 298.666667 0 0 1 298.666666-298.666667h341.333334z"
                 fill="#333333"
               />
@@ -83,7 +83,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
                 style={{
                   transformOrigin: "512px 512px",
                 }}
-                className="group-hover:animate-shake-left"
+                className="group-hover/parent:animate-shake-left"
                 d="M384 426.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v85.333334a42.666667 42.666667 0 1 1-85.333334 0v-85.333334a42.666667 42.666667 0 0 1 42.666667-42.666666zM640 426.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v85.333334a42.666667 42.666667 0 1 1-85.333334 0v-85.333334a42.666667 42.666667 0 0 1 42.666667-42.666666z"
                 fill="#333333"
               />
@@ -96,7 +96,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
         </p>
 
         <p
-          className={`sm:flex md:flex lg:hidden max-sm:group-[.is-visible]:hidden h-9 mx-2.5 group transition-all duration-300 ease rounded-xl  items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1`}
+          className={`sm:flex md:flex lg:hidden max-sm:group-[.is-visible]:hidden h-9 mx-2.5 group/parent transition-all duration-300 ease rounded-xl  items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1`}
         >
           <a className="w-9 h-full flex items-center justify-center overflow-hidden shrink-0">
             <svg
@@ -112,7 +112,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
                 style={{
                   transformOrigin: "512px 512px",
                 }}
-                className="group-hover:animate-shake-left"
+                className="group-hover/parent:animate-shake-left"
                 d="M511.829333 85.333333a458.794667 458.794667 0 0 0-317.098666 128.896 42.666667 42.666667 0 0 0-0.469334 0.512l-96.426666 96.426667a42.666667 42.666667 0 0 0 0 60.330667 42.666667 42.666667 0 0 0 60.330666 0l95.914667-95.914667A373.333333 373.333333 0 0 1 512 170.666667c153.856 0 265.941333 91.392 315.306667 210.688 49.450667 119.253333 34.816 263.210667-73.984 371.968-108.8 108.8-252.714667 123.434667-371.968 74.026666C262.058667 777.941333 170.666667 665.856 170.666667 512a42.666667 42.666667 0 0 0-42.666667-42.666667 42.666667 42.666667 0 0 0-42.666667 42.666667c0 188.245333 115.413333 332.885333 263.424 394.154667 148.010667 61.312 331.818667 40.618667 464.896-92.501334 133.12-133.12 153.813333-316.885333 92.501334-464.896C844.885333 200.746667 700.245333 85.333333 512 85.333333a42.666667 42.666667 0 0 0-0.170667 0z"
                 fill="#333333"
                 p-id="25665"
@@ -121,7 +121,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
                 style={{
                   transformOrigin: "512px 512px",
                 }}
-                className="group-hover:animate-shake-left"
+                className="group-hover/parent:animate-shake-left"
                 d="M128 85.333333a42.666667 42.666667 0 0 0-42.666667 42.666667v213.333333a42.666667 42.666667 0 0 0 42.666667 42.666667h213.333333a42.666667 42.666667 0 0 0 42.666667-42.666667 42.666667 42.666667 0 0 0-42.666667-42.666666H170.666667V128a42.666667 42.666667 0 0 0-42.666667-42.666667z"
                 fill="#333333"
                 p-id="25666"
@@ -131,7 +131,7 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
                 style={{
                   transformOrigin: "512px 512px",
                 }}
-                className="group-hover:animate-spin-once"
+                className="group-hover/parent:animate-spin-once"
                 d="M512 256a42.666667 42.666667 0 0 0-42.666667 42.666667v213.333333a42.666667 42.666667 0 0 0 23.594667 38.186667l170.666667 85.333333a42.666667 42.666667 0 0 0 57.258666-19.114667 42.666667 42.666667 0 0 0-19.114666-57.258666L554.666667 485.674667V298.666667a42.666667 42.666667 0 0 0-42.666667-42.666667z"
                 fill="#333333"
                 p-id="25667"

@@ -6,7 +6,7 @@ interface Props {
 
 export default function HeaderbarComponent({ isOpen, onOpenChange}: Props) {
     return (
-        <header className="sm:hidden h-[40px] w-full">
+        <header className="hidden max-sm:block h-[40px] w-full">
             <button onClick={() => onOpenChange(!isOpen)}>{ isOpen ? '关闭' : '打开'}</button>
         </header>
     )

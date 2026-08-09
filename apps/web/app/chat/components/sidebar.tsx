@@ -4,8 +4,21 @@ interface Props {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
 }
+import { useState } from "react";
 
 export default function Sidebar({ isOpen, onOpenChange }: Props) {
+  const [isVisible, setIsVisible] = useState(isOpen);
+
+  // 打开时：在渲染阶段同步更新（React 允许这种写法）
+  if (isOpen && !isVisible) {
+    setIsVisible(true);
+  }
+
+  const handleTransitionEnd = (e: React.TransitionEvent<HTMLElement>) => {
+    if (e.propertyName === "width" && !isOpen) {
+      setIsVisible(false);
+    }
+  };
   return (
     <>
       {isOpen && (
@@ -18,7 +31,8 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
         </div>
       )}
       <aside
-        className={`transition-all bg-[#fff] duration-300 ease-in-out overflow-hidden w-14 lg:w-[255px] md:w-14 max-sm:w-0 h-full border-r border-[#0505050f]  absolute left-0 top-0 pt-4 ${isOpen ? "max-sm:w-[255px]" : "max-sm:w-0"} max-sm:z-20`}
+        onTransitionEnd={handleTransitionEnd}
+        className={`@container group transition-all bg-[#fff] duration-300 ease-in-out overflow-hidden w-0 sm:w-14 md:w-14 lg:w-[255px] h-full border-r border-[#0505050f]  absolute left-0 top-0 pt-4 ${isOpen ? "max-sm:w-[255px]" : "max-sm:w-0"} max-sm:z-20 ${isVisible ? "is-visible" : ""}`}
       >
         <p className="h-[40px] px-3 flex items-center mb-4">
           <a className="transition-all duration-300 ease group scale-100 hover:scale-110 w-8 h-8 cursor-pointer rounded-lg flex items-center justify-center oveflow-hidden shrink-0">
@@ -76,16 +90,15 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
             </svg>
           </a>
 
-          <span
-            className="lg:flex-1 lg:opacity-100
-    md:w-0 md:opacity-0 whitespace-nowrap overflow-hidden leading-none text-ellipsis text-sm text-[#333]"
-          >
+          <span className="lg:flex-1 lg:opacity-100 md:w-0 md:opacity-0 whitespace-nowrap overflow-hidden leading-none text-ellipsis text-sm text-[#333]">
             New Chat
           </span>
         </p>
 
-        <p className="h-9 mx-2.5 group transition-all duration-300 ease rounded-xl flex items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1">
-          <a className="w-9 h-full flex items-center justify-center oveflow-hidden shrink-0">
+        <p
+          className={`sm:flex md:flex lg:hidden max-sm:group-[.is-visible]:hidden h-9 mx-2.5 group transition-all duration-300 ease rounded-xl  items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1`}
+        >
+          <a className="w-9 h-full flex items-center justify-center overflow-hidden shrink-0">
             <svg
               className="icon"
               viewBox="0 0 1024 1024"
@@ -126,6 +139,10 @@ export default function Sidebar({ isOpen, onOpenChange }: Props) {
             </svg>
           </a>
         </p>
+
+        <div
+          className={`hidden lg:block max-sm:group-[.is-visible]:!block  w-full h-[20px] mt-4 bg-[red]`}
+        ></div>
 
         {/* <button onClick={() => onOpenChange(!isOpen)}>关闭</button> */}
       </aside>

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NOS",
+  title: "OS",
   description: "A personal AI agent. ",
 };
 

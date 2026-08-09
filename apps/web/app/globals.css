@@ -10,6 +10,38 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --animate-spin-once: spinOnce 0.3s ease forwards;
+
+  @keyframes spinOnce {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  --animate-shake-left: shake-left 0.8s ease-in-out;
+
+  @keyframes shake-left {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    30% {
+      transform: rotate(-15deg);
+    }
+
+    60% {
+      transform: rotate(6deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

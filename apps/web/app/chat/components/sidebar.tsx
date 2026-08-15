@@ -1,0 +1,183 @@
+"use client";
+
+interface Props {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+import { useState } from "react";
+import { ChevronRight, Ellipsis } from "lucide-react";
+
+export default function Sidebar({ isOpen, onOpenChange }: Props) {
+  const [isVisible, setIsVisible] = useState(isOpen);
+  const [isExpand, setIsExpand] = useState(true);
+
+  // 打开时：在渲染阶段同步更新（React 允许这种写法）
+  if (isOpen && !isVisible) {
+    setIsVisible(true);
+  }
+
+  const handleTransitionEnd = (e: React.TransitionEvent<HTMLElement>) => {
+    if (e.propertyName === "width" && !isOpen) {
+      setIsVisible(false);
+    }
+  };
+  return (
+    <>
+      {isOpen && (
+        <div
+          className="max-sm:fixed max-sm:inset-0 max-sm:bg-black/20 max-sm:z-10
+            sm:hidden"
+          onClick={() => onOpenChange(!isOpen)}
+        >
+          关闭
+        </div>
+      )}
+      <aside
+        onTransitionEnd={handleTransitionEnd}
+        className={`@container group transition-all bg-white duration-300 ease-in-out overflow-hidden w-0 sm:w-14 md:w-14 lg:w-63.75 h-full border-r border-[#0505050f] absolute left-0 top-0 pt-4 ${isOpen ? "max-sm:w-63.75" : "max-sm:w-0"} max-sm:z-20 ${isVisible ? "is-visible" : ""} flex flex-col select-none`}
+      >
+        <div className="shrink-0">
+          <p className="h-10 px-3 flex items-center mb-4">
+            <a className="transition-all duration-300 ease group/parent scale-100 hover:scale-110 w-8 h-8 cursor-pointer rounded-lg flex items-center justify-center oveflow-hidden shrink-0">
+              <svg
+                className="icon transition-all duration-300 ease"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="73231"
+                width="26"
+                height="26"
+              >
+                <path
+                  d="M561.837521 1.451453l0 64.589653c230.781006-0.725726 334.559887 147.322466 386.81219 327.302622 52.97803 183.608788 55.155209 417.2927 26.126152 630.656272-269.970234-19.594614-574.04961-8.708717-849.825656-7.257264C95.92115 717.017718 59.634828 415.115521 30.605771 117.567682c58.058115-4.354359 105.95606 6.531538 158.208363 0 30.48051-3.628632 61.686747-19.594614 92.167257-29.754784C373.874374 58.058115 463.864452 31.931963 556.03171 0.725726 559.660342 1.451453 561.111795-1.451453 561.837521 1.451453zM450.07565 105.95606c-79.829908 27.577605-162.562721 52.252303-243.844082 78.378455-5.080085 26.126152-4.354359 58.058115-12.337349 82.007087-4.354359-28.303331-11.611623-54.429483-17.417434-82.007087-7.982991 1.451453-21.046067-2.177179-26.126152 1.451453 24.674699 219.169383 48.623671 457.207654 73.29837 677.82849l227.878101 0c7.982991-112.487597-10.16017-253.278526 0-370.846208C457.332915 428.178597 500.150774 343.99433 577.803503 377.377746c41.366407 18.143161 52.252303 77.652729 52.252303 132.082211 0 113.93905-50.075124 245.295535-71.121191 341.091425 103.77888 6.531538 209.73494 8.708717 318.593905 15.965982 15.965982-271.421687 2.902906-597.272856-181.431609-705.406095C633.684438 124.824947 532.082737 123.373494 451.527103 152.402551 450.801377 137.888023 454.430009 117.567682 450.07565 105.95606z"
+                  p-id="73232"
+                  fill="currentColor"
+                ></path>
+                <path
+                  className="group-hover/parent:scale-110 group-hover/parent:animate-shake-left transition-all duration-300 ease"
+                  d="M453.704282 346.17151c60.235294-73.29837 189.4146-27.577605 224.975195 43.543586 63.1382 128.453579-12.337349 348.348689-55.880936 444.144578 18.868887-115.390503 88.538625-328.754075 24.674699-442.693125C617.718457 338.914245 524.825473 296.822112 453.704282 346.17151z"
+                  p-id="73233"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </a>
+          </p>
+
+          <p className="h-9 mx-2.5 group/parent transition-all duration-300 ease rounded-xl flex items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1">
+            <a className="w-9 h-full flex items-center justify-center oveflow-hidden shrink-0">
+              <svg
+                className="icon"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+              >
+                <path
+                  style={{
+                    transformOrigin: "512px 512px",
+                  }}
+                  className="group-hover/parent:scale-110 transition-all duration-300 ease"
+                  d="M810.666667 597.333333a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333h85.333334a42.666667 42.666667 0 1 1 0 85.333334h-85.333334v85.333333a42.666667 42.666667 0 1 1-85.333333 0v-85.333333h-85.333333a42.666667 42.666667 0 1 1 0-85.333334h85.333333v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667zM682.666667 128a298.666667 298.666667 0 0 1 298.666666 298.666667v42.666666a42.666667 42.666667 0 1 1-85.333333 0v-42.666666a213.333333 213.333333 0 0 0-213.333333-213.333334H341.333333a213.333333 213.333333 0 0 0-213.333333 213.333334v384h384a42.666667 42.666667 0 1 1 0 85.333333H128a85.333333 85.333333 0 0 1-85.333333-85.333333v-384a298.666667 298.666667 0 0 1 298.666666-298.666667h341.333334z"
+                  fill="currentColor"
+                />
+
+                <path
+                  style={{
+                    transformOrigin: "512px 512px",
+                  }}
+                  className="group-hover/parent:animate-shake-left"
+                  d="M384 426.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v85.333334a42.666667 42.666667 0 1 1-85.333334 0v-85.333334a42.666667 42.666667 0 0 1 42.666667-42.666666zM640 426.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v85.333334a42.666667 42.666667 0 1 1-85.333334 0v-85.333334a42.666667 42.666667 0 0 1 42.666667-42.666666z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+
+            <span className="lg:flex-1 lg:opacity-100 md:w-0 md:opacity-0 whitespace-nowrap overflow-hidden leading-none text-ellipsis  ">
+              New Chat
+            </span>
+          </p>
+
+          <p
+            className={`sm:flex md:flex lg:hidden max-sm:group-[.is-visible]:hidden h-9 mx-2.5 group/parent transition-all duration-300 ease rounded-xl  items-center mb-2 bg-transparent hover:bg-gray-200 cursor-pointer gap-1`}
+          >
+            <a className="w-9 h-full flex items-center justify-center overflow-hidden shrink-0">
+              <svg
+                className="icon"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="25664"
+                width="20"
+                height="20"
+              >
+                <path
+                  style={{
+                    transformOrigin: "512px 512px",
+                  }}
+                  className="group-hover/parent:animate-shake-left"
+                  d="M511.829333 85.333333a458.794667 458.794667 0 0 0-317.098666 128.896 42.666667 42.666667 0 0 0-0.469334 0.512l-96.426666 96.426667a42.666667 42.666667 0 0 0 0 60.330667 42.666667 42.666667 0 0 0 60.330666 0l95.914667-95.914667A373.333333 373.333333 0 0 1 512 170.666667c153.856 0 265.941333 91.392 315.306667 210.688 49.450667 119.253333 34.816 263.210667-73.984 371.968-108.8 108.8-252.714667 123.434667-371.968 74.026666C262.058667 777.941333 170.666667 665.856 170.666667 512a42.666667 42.666667 0 0 0-42.666667-42.666667 42.666667 42.666667 0 0 0-42.666667 42.666667c0 188.245333 115.413333 332.885333 263.424 394.154667 148.010667 61.312 331.818667 40.618667 464.896-92.501334 133.12-133.12 153.813333-316.885333 92.501334-464.896C844.885333 200.746667 700.245333 85.333333 512 85.333333a42.666667 42.666667 0 0 0-0.170667 0z"
+                  fill="currentColor"
+                  p-id="25665"
+                ></path>
+                <path
+                  style={{
+                    transformOrigin: "512px 512px",
+                  }}
+                  className="group-hover/parent:animate-shake-left"
+                  d="M128 85.333333a42.666667 42.666667 0 0 0-42.666667 42.666667v213.333333a42.666667 42.666667 0 0 0 42.666667 42.666667h213.333333a42.666667 42.666667 0 0 0 42.666667-42.666667 42.666667 42.666667 0 0 0-42.666667-42.666666H170.666667V128a42.666667 42.666667 0 0 0-42.666667-42.666667z"
+                  fill="currentColor"
+                  p-id="25666"
+                ></path>
+
+                <path
+                  style={{
+                    transformOrigin: "512px 512px",
+                  }}
+                  className="group-hover/parent:animate-spin-once"
+                  d="M512 256a42.666667 42.666667 0 0 0-42.666667 42.666667v213.333333a42.666667 42.666667 0 0 0 23.594667 38.186667l170.666667 85.333333a42.666667 42.666667 0 0 0 57.258666-19.114667 42.666667 42.666667 0 0 0-19.114666-57.258666L554.666667 485.674667V298.666667a42.666667 42.666667 0 0 0-42.666667-42.666667z"
+                  fill="currentColor"
+                  p-id="25667"
+                ></path>
+              </svg>
+            </a>
+          </p>
+        </div>
+
+        <div
+          className={`hidden lg:flex max-sm:group-[.is-visible]:block! w-full flex-1 flex-col gap-2 pt-3 overflow-y-auto`}
+        >
+          <div
+            onClick={() => setIsExpand(!isExpand)}
+            className="rounded-xl h-9 shrink-0 mx-2.5 px-2.5 flex items-center gap-2 cursor-pointer "
+          >
+            <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+              History Chat
+            </span>
+            <ChevronRight
+              className={`${isExpand ? "rotate-90" : ""} transform-all duration-200 ease rotate-0`}
+              strokeWidth={2}
+              size={13}
+            />
+          </div>
+
+          <ul
+            className={`flex-1 ${isExpand ? "flex" : "hidden"} flex-col gap-1 `}
+          >
+            {[...Array(10)].map((_, index) => (
+              <li
+                key={index}
+                className={`group/parent bg-transparent hover:bg-gray-100 rounded-xl h-9 mx-2.5 px-2.5 flex items-center justify-between gap-2 cursor-pointer transition-all duration-300 ease ${index === 1 ? "bg-gray-100!" : ""}`}
+              >
+                <span className="text-gray-600 min-w-0 w-[90%] truncate">Chat {index + 1}</span>
+                <Ellipsis className="opacity-0 bg-transparent rounded-sm shrink-0 group-hover/parent:opacity-100 transition-all duration-300 ease hover:bg-gray-200" size={15} strokeWidth={2} />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* <button onClick={() => onOpenChange(!isOpen)}>关闭</button> */}
+      </aside>
+    </>
+  );
+}
